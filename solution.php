@@ -1,6 +1,8 @@
 <?php
 
 $testData = [3,2,10.00,20.00,4,15.00,15.01,3.00,3.01,3,5.00,9.00,4.00,2,2,8.00,6.00,2,9.20,6.75,0];
+
+//initialize variables
 $trips = [];
 $tripsHash = [];
 $charges = 0;
@@ -16,21 +18,16 @@ function displayNum($num){
   }
 }
 
-//find starting and ending index of trips and store at $trips array
+//find starting and ending index of each trip and store at $trips array
 foreach ($testData as $key => $value ){
-
   if ( gettype($testData[$key]) == "integer" && isset($testData[$key+1]) && gettype($testData[$key+1]) == "integer" ){
     if ($key!= 0){array_push($trips,$key-1);}
     array_push($trips,$key);
   }
-
-  if ( $value == 0 ){
-    array_push($trips,$key-1);
-  }
-
 }
 
-
+$last = sizeof($testData)-2;
+array_push( $trips, $last);
 
 //go through each trip, get total charges for each member and insert to tripHash associative array
 foreach($trips as $key=>$val){
@@ -48,7 +45,6 @@ foreach($trips as $key=>$val){
   }
   $tripsHash[]=$trip;
 }
-
 
 //display results
 foreach($tripsHash as $trip){
